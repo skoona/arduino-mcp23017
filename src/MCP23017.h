@@ -100,12 +100,12 @@ public:
 	/**
 	 * Uses the I2C address set during construction. Implicitly calls init().
 	 */
-	void begin();
+	uint8_t begin();
 	/**
 	 * Overrides the I2C address set by the constructor. Implicitly calls begin().
 
 	 */
-	void begin(uint8_t address);
+	uint8_t begin(uint8_t address);
 	/**
 	 * Initializes the chip with the default configuration.
 	 * Enables Byte mode (IOCON.BANK = 0 and IOCON.SEQOP = 1).
@@ -113,7 +113,7 @@ public:
 	 * 
 	 * See "3.2.1 Byte mode and Sequential mode".
 	 */
-	void init();
+	uint8_t init();
 	/**
 	 * Controls the pins direction on a whole port at once.
 	 * 
@@ -122,7 +122,7 @@ public:
 	 * 
 	 * See "3.5.1 I/O Direction register".
 	 */
-	void portMode(MCP23017Port port, uint8_t directions, uint8_t pullups = 0xFF, uint8_t inverted = 0x00);
+	uint8_t portMode(MCP23017Port port, uint8_t directions, uint8_t pullups = 0xFF, uint8_t inverted = 0x00);
 	/**
 	 * Controls a single pin direction. 
 	 * Pin 0-7 for port A, 8-15 fo port B.
@@ -138,7 +138,7 @@ public:
 	 * This library pinMode function behaves like Arduino's standard pinMode for consistency.
 	 * [ OUTPUT | INPUT | INPUT_PULLUP ]
 	 */
-	void pinMode(uint8_t pin, uint8_t mode, bool inverted = false);
+	uint8_t pinMode(uint8_t pin, uint8_t mode, bool inverted = false);
 
 	/**
 	 * Writes a single pin state.
@@ -149,7 +149,7 @@ public:
 	 * 
 	 * See "3.5.10 Port register".
 	 */
-	void digitalWrite(uint8_t pin, uint8_t state);
+	uint8_t digitalWrite(uint8_t pin, uint8_t state);
 	/**
 	 * Reads a single pin state.
 	 * Pin 0-7 for port A, 8-15 for port B.
@@ -178,7 +178,7 @@ public:
 	 * 
 	 * See "3.5.10 Port register".
 	 */
-	void write(uint16_t value);
+	uint8_t write(uint16_t value);
 
 	/**
 	 * Reads pins state for a whole port.
@@ -202,7 +202,7 @@ public:
 	/**
 	 * Writes a single register value.
 	 */
-	void writeRegister(MCP23017Register reg, uint8_t value);
+	uint8_t writeRegister(MCP23017Register reg, uint8_t value);
 	/**
 	 * Writes values to a register pair.
 	 * 
@@ -210,7 +210,7 @@ public:
 	 * you have to supply a portA register address to reg. Otherwise, values
 	 * will be reversed due to the way the MCP23017 works in Byte mode.
 	 */
-	void writeRegister(MCP23017Register reg, uint8_t portA, uint8_t portB);
+	uint8_t writeRegister(MCP23017Register reg, uint8_t portA, uint8_t portB);
 	/**
 	 * Reads a single register value.
 	 */
@@ -222,7 +222,7 @@ public:
 	 * you have to supply a portA register address to reg. Otherwise, values
 	 * will be reversed due to the way the MCP23017 works in Byte mode.
 	 */
-	void readRegister(MCP23017Register reg, uint8_t& portA, uint8_t& portB);
+	uint8_t readRegister(MCP23017Register reg, uint8_t& portA, uint8_t& portB);
 
 #ifdef _MCP23017_INTERRUPT_SUPPORT_
 
@@ -234,28 +234,28 @@ public:
 	 * Controls the IOCON.MIRROR bit. 
 	 * See "3.5.6 Configuration register".
 	 */
-	void interruptMode(MCP23017InterruptMode intMode);
+	uint8_t interruptMode(MCP23017InterruptMode intMode);
 	/**
 	 * Configures interrupt registers using an Arduino-like API.
 	 * mode can be one of CHANGE, FALLING or RISING.
 	 */
-	void interrupt(MCP23017Port port, uint8_t mode);
+	uint8_t interrupt(MCP23017Port port, uint8_t mode);
 	/**
 	 * Disable interrupts for the specified port.
 	 */
-	void disableInterrupt(MCP23017Port port);
+	uint8_t disableInterrupt(MCP23017Port port);
 	/**
 	 * Reads which pin caused the interrupt.
 	 */
-	void interruptedBy(uint8_t& portA, uint8_t& portB);
+	uint8_t interruptedBy(uint8_t& portA, uint8_t& portB);
 	/**
 	 * Clears interrupts on both ports.
 	 */
-	void clearInterrupts();
+	uint8_t clearInterrupts();
 	/**
 	 * Clear interrupts on both ports. Returns port values at the time the interrupt occured.
 	 */
-	void clearInterrupts(uint8_t& portA, uint8_t& portB);
+	uint8_t clearInterrupts(uint8_t& portA, uint8_t& portB);
 
 #endif
 };
