@@ -29,7 +29,7 @@ uint8_t MCP23017::init()
 	rc = writeRegister(MCP23017Register::IOCON, 0b00100000);
 
 	//enable all pull up resistors (will be effective for input pins only)
-	rc = rc | writeRegister(MCP23017Register::GPPU_A, 0xFF, 0xFF);
+	rc |=  writeRegister(MCP23017Register::GPPU_A, 0xFF, 0xFF);
 	return rc;
 }
 
@@ -49,8 +49,8 @@ uint8_t MCP23017::portMode(MCP23017Port port, uint8_t directions, uint8_t pullup
 	uint8_t rc = 0;
 
 	rc = writeRegister(MCP23017Register::IODIR_A + port, directions);
-	rc = rc |writeRegister(MCP23017Register::GPPU_A + port, pullups);
-	rc = rc |writeRegister(MCP23017Register::IPOL_A + port, inverted);
+	rc |= writeRegister(MCP23017Register::GPPU_A + port, pullups);
+	rc |= writeRegister(MCP23017Register::IPOL_A + port, inverted);
 	return rc;
 }
 
@@ -82,8 +82,8 @@ uint8_t MCP23017::pinMode(uint8_t pin, uint8_t mode, bool inverted)
 	else bitClear(pol, pin);
 
 	rc = writeRegister(iodirreg, iodir);
-	rc = rc | writeRegister(pullupreg, pull);
-	rc = rc | writeRegister(polreg, pol);
+	rc |=  writeRegister(pullupreg, pull);
+	rc |=  writeRegister(polreg, pol);
 	return rc;
 }
 
@@ -204,17 +204,17 @@ uint8_t MCP23017::interrupt(MCP23017Port port, uint8_t mode)
 	{
 	case CHANGE:
 		//interrupt on change
-		rc = rc | writeRegister(intconreg, 0);
+		rc |=  writeRegister(intconreg, 0);
 		break;
 	case FALLING:
 		//interrupt falling : compared against defval, 0xff
 		rc = writeRegister(intconreg, 0xFF);
-		rc = rc | writeRegister(defvalreg, 0xFF);
+		rc |=  writeRegister(defvalreg, 0xFF);
 		break;
 	case RISING:
 		//interrupt rising : compared against defval, 0x00
-		rc = rc | writeRegister(intconreg, 0xFF);
-		rc = rc | writeRegister(defvalreg, 0x00);
+		rc |=  writeRegister(intconreg, 0xFF);
+		rc |=  writeRegister(defvalreg, 0x00);
 		break;
 	}
 	return rc;
